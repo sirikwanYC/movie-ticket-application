@@ -3,18 +3,18 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "react-scripts": "2.1.8"
+    "babel-plugin-import": "1.11.*",
+    "bootstrap": "4.3.*",
+    "node-sass": "4.11.*",
+    "react": "16.8.*",
+    "react-dom": "16.8.*",
+    "react-router-dom": "5.0.*",
+    "react-scripts": "2.1.*",
+    "reactstrap": "^7.1.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
+    "dev": "react-scripts start",
+    "build": "react-scripts build"
   },
   "browserslist": [
     ">0.2%",
