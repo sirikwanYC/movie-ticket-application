@@ -1,0 +1,25 @@
+{
+  "name": "movie-ticket-service",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "dev": "nodemon ./src/server.js --exec babel-node -e js"
+  },
+  "dependencies": {
+    "@babel/polyfill": "7.2.*",
+    "body-parser": "1.18.*",
+    "cors": "2.8.*",
+    "dotenv": "6.2.*",
+    "express": "4.16.*",
+    "mongoose": "5.4.*",
+    "nodemon": "1.18.*"
+  },
+  "devDependencies": {
+    "@babel/cli": "7.0.0-beta.54",
+    "@babel/core": "7.0.0-beta.54",
+    "@babel/node": "7.0.0-beta.54",
+    "@babel/preset-env": "7.0.0-beta.54",
+    "babel-core": "7.0.0-bridge.0"
+  }
+}
