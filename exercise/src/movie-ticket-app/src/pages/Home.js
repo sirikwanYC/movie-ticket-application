@@ -8,14 +8,20 @@ const movie = [
         nameMovieEN: 'avenger end game',
         nameMovieTH: 'อเวนเจอร์เผด็จศึก',
         srcImg: 'https://f.ptcdn.info/307/061/000/pjeqrm8z2pc2HIJGldj-o.jpg',
-        sound: 'th',
+        timeMovie: 182,
+        typeMovie: 'แอ็คชั่น',
+        typeTheater: 'digital 3D',
+        sound: 'th/--',
         rate: '15+',
         theater: 1,
-        roundMovie: ['11:30', '13:00', '15:00', '17:00', '19:00', '21:30']
+        roundMovie: ['11:30', '13:00', '15:00', '17:00', '19:00', '21:30', '11:30', '13:00', '15:00', '17:00', '19:00', '21:30']
     },
     {
         nameMovieEN: 'shazam',
         nameMovieTH: 'ซาแซม',
+        timeMovie: 132,
+        typeMovie: 'แอ็คชัน , แฟนตาซี , วิทยาศาสตร์',
+        typeTheater: 'digital 2D',
         srcImg: 'https://m.media-amazon.com/images/M/MV5BYTE0Yjc1NzUtMjFjMC00Y2I3LTg3NGYtNGRlMGJhYThjMTJmXkEyXkFqcGdeQXVyNTI4MzE4MDU@._V1_UX182_CR0,0,182,268_AL_.jpg',
         sound: 'EN/TH',
         rate: '18+',
@@ -45,7 +51,7 @@ class Home extends Component {
                                                 {`${value.nameMovieEN} ${value.nameMovieTH}`}
                                             </div>
                                             <div className="sound size-medium">
-                                                {value.sound} <span className="rate white" >{value.rate}</span>
+                                                {value.typeMovie} : {value.timeMovie} นาที <span className="box-button white" >{value.typeTheater}</span> <span className="box-button white" >{value.sound}</span> <span className="box-button white" >{value.rate}</span>
                                             </div>
                                             <div className="round-movie" >
                                                 {

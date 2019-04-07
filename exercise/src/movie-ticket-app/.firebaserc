@@ -1,6 +1,5 @@
 {
   "projects": {
-    "movie-ticket-application": "movie-ticket-application",
     "default": "movie-ticket-application"
   }
 }

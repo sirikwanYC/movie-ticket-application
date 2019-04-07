@@ -9,7 +9,7 @@
         .row {
             box-shadow: 9px 9px 8px 1px #272727cf;
             .theater {
-                border-right: 1px solid #989696;
+                border-right: 1px solid #947474;
                 height: 250px;
                 text-align: center;
                 padding-top: 4%;
@@ -42,7 +42,8 @@
                 }
                 .sound {
                     text-transform: uppercase;
-                    .rate {
+                    margin-top: 7px;
+                    .box-button {
                         border: 1px solid #2d3f49;
                         background-color: #2d3f49;
                         border-radius: 6px; 
