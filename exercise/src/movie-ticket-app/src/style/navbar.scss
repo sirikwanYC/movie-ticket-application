@@ -3,10 +3,19 @@
     background-color: #232323;
     color: #fff;
     box-shadow: 3px 3px 5px 6px #ccc;
-    .margin {
-        margin-left: 39px;
+    img {
+        width: 18%;
     }
-    .margin-text-logo, .margin{
-        margin-top: 20px;
+    .margin {
+        margin-top: 8px;
+    }
+    .col-auto {
+        padding: 0;
+    }
+    .text {
+        color: #edb20c;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin: 13px 9px 0 34px;
     }
 }
