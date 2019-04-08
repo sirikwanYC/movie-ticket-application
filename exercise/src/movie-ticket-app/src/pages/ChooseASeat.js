@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Layout from '../components/Layout'
-import { Row } from 'reactstrap'
+import { Row, Button } from 'reactstrap'
 
 const seat = [
     ['k1', 'k2', 'k3', 'k4', 'k5', 'k6', 'k7', 'k8', 'k9', 'k10', 'k11', 'k12', 'k13', 'k14', 'k15', 'k16'],
@@ -22,21 +22,38 @@ class ChooseASeat extends Component {
         return (
             <div className="choose-a-seat" >
                 <Layout selectSeat={true} >
-                    <div className="seat-box" >
-                        {
-                            seat.map((value, index) => {
-                                return (
-                                    <div key={+index}>
-                                        {
-                                            value.map((v, i) => {
-                                                return <span key={+i} > {v} </span>
-                                            })
-                                        }
-                                    </div>
+                    <div className="card-seat-box" >
+                        <div className="seat" >
+                            {
+                                seat.map((value, index) => {
+                                    return (
+                                        <div key={+index} className="row-seat" style={
+                                            index == 10 ? { justifyContent: 'center' } :
+                                            index == 9 || index == 6 ? { marginBottom: 7} : {}
+                                            }>
+                                            {
+                                                value.map((v, i) => {
+                                                    return <div key={+i} className="col-seat" >
+                                                        {
+                                                            index >= 0 && index <= 6 ?
+                                                                <Button><img src="images/sofa.png" /></Button>
+                                                                :
+                                                                index > 6 && index <= 9 ?
+                                                                    <Button><img src="images/single-sofa.png" /></Button>
+                                                                    :
+                                                                    index == 10 ?
+                                                                        <Button><img src="images/two-seat-sofa.png" style={{ width: 48 }} /></Button>
+                                                                        : ''
+                                                        }
+                                                    </div>
+                                                })
+                                            }
+                                        </div>
 
-                                )
-                            })
-                        }
+                                    )
+                                })
+                            }
+                        </div>
                     </div>
                 </Layout>
             </div>
