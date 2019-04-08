@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Button, Row, Col } from 'reactstrap'
 import Layout from '../components/Layout'
+import { Link } from 'react-router-dom'
 
 
 const movie = [
@@ -33,7 +34,7 @@ class Home extends Component {
     render() {
         return (
             <div className="home" >
-                <Layout>
+                <Layout selectMovie={true} >
                     {
                         movie && movie.map((value, index) => {
                             return (
@@ -50,7 +51,7 @@ class Home extends Component {
                                             <div className="bar-name-movie white size-large" >
                                                 {`${value.nameMovieEN} ${value.nameMovieTH}`}
                                             </div>
-                                            <div className="sound size-medium">
+                                            <div className="sound size-small">
                                                 {value.typeMovie} : {value.timeMovie} นาที <span className="box-button white" >{value.typeTheater}</span> <span className="box-button white" >{value.sound}</span> <span className="box-button white" >{value.rate}</span>
                                             </div>
                                             <div className="round-movie" >
@@ -58,7 +59,9 @@ class Home extends Component {
                                                     value.roundMovie.map((v, i) => {
                                                         return (
                                                             <div key={+i} className="box-button">
-                                                                <Button className="size-medium" > {v} </Button>
+                                                                <Button className="size-medium" >
+                                                                    <Link to={{ pathname: '/choose-a-seat', state: { time: v } }} > {v} </Link>
+                                                                </Button>
                                                             </div>
                                                         )
                                                     })

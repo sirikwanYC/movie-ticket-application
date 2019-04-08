@@ -1,5 +1,50 @@
-.card-content {
-    background-color: #030202c9;
-    height: fit-content;
-    padding: 35px 50px;
+.layout {
+    .text-header {
+        background-color: #383838;
+        padding: 30px 112px 0;
+        .bar-text{
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            .select-movie, .select-movie-last {
+                display: flex;
+                flex-direction: row;
+                width: 30%;
+                text-align: center;
+                .border-number, .border-number-focus {
+                    letter-spacing: 2px;
+                    background-color: #ffffff;
+                    border-radius: 50px;
+                    width: 40px;
+                    height: 40px;
+                    padding-top: 3px;
+                }
+                .line, .line-focus {
+                    background: #ffffff;
+                    width: 91%;
+                    margin: 19px 0;
+                }
+                .border-number-focus, .line-focus {
+                    background-color: #2f54eb;
+                }
+            }
+            .select-movie-last {
+                width: 4%;
+            }
+            .text, .text-opacity {
+                width: 25%;
+            }
+            .text-opacity, .border-number-focus {
+                opacity: 0.8;
+            }
+        }
+
+    }
+
+    .card-content {
+        background-color: #030202c9;
+        height: fit-content;
+        padding: 30px 50px;
+    }
 }
