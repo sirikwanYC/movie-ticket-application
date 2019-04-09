@@ -16,33 +16,111 @@ const seat = [
     ['aa1', 'aa2', 'aa3', 'aa4', 'aa5']
 ]
 
+const seatFromDb = ['aa1', 'aa4', 'b9', 'b10', 'a1', 'a2', 'a3', 'a4', 'a5', 'k5', 'k6', 'k7']
 
 class ChooseASeat extends Component {
+    state = {
+        seatSelect: []
+    }
+
+    selectSeat = (seat) => {
+        const seatSelect = this.state.seatSelect
+        seatSelect.push(seat)
+        this.setState({
+            seatSelect,
+        })
+    }
+
+    unSelectSeat = (seat) => {
+        let seatSelect = this.state.seatSelect
+        seatSelect = seatSelect.filter(result => result !== seat)
+        this.setState({
+            seatSelect,
+        })
+    }
+
     render() {
+
+        const { seatSelect } = this.state
+
         return (
             <div className="choose-a-seat" >
                 <Layout selectSeat={true} >
                     <div className="card-seat-box" >
                         <div className="seat" >
+                            <div className="theater" >
+                                <div className="text dark-blue" > จอภาพยนตร์ </div>
+                            </div>
                             {
                                 seat.map((value, index) => {
                                     return (
                                         <div key={+index} className="row-seat" style={
                                             index == 10 ? { justifyContent: 'center' } :
-                                            index == 9 || index == 6 ? { marginBottom: 7} : {}
-                                            }>
+                                                index == 9 || index == 6 ? { marginBottom: 7 } : {}
+                                        }>
                                             {
                                                 value.map((v, i) => {
                                                     return <div key={+i} className="col-seat" >
                                                         {
                                                             index >= 0 && index <= 6 ?
-                                                                <Button><img src="images/sofa.png" /></Button>
+                                                                <div>
+                                                                    {
+                                                                        seatFromDb.some(result => result == v) ?
+                                                                            <Button disabled>
+                                                                                <img src="images/user-image-with-black-background.png" />
+                                                                            </Button>
+                                                                            : seatSelect.some(result => result == v) ?
+                                                                                <Button
+                                                                                    onClick={() => this.unSelectSeat(v)}
+                                                                                    disabled={seatFromDb.some(result => result == v)} >
+                                                                                    <img src="images/checked.png" />
+                                                                                </Button>
+                                                                                :
+                                                                                <Button onClick={() => this.selectSeat(v)} >
+                                                                                    <img src="images/sofa.png" />
+                                                                                </Button>
+                                                                    }
+                                                                </div>
                                                                 :
                                                                 index > 6 && index <= 9 ?
-                                                                    <Button><img src="images/single-sofa.png" /></Button>
+                                                                    <div>
+                                                                        {
+                                                                            seatFromDb.some(result => result == v) ?
+                                                                                <Button
+                                                                                    onClick={() => this.unSelectSeat(v)}
+                                                                                    disabled={seatFromDb.some(result => result == v)} >
+                                                                                    <img src="images/user-image-with-black-background.png" />
+                                                                                </Button>
+                                                                                : seatSelect.some(result => result == v) ?
+                                                                                    <Button
+                                                                                        onClick={() => this.unSelectSeat(v)}
+                                                                                        disabled={seatFromDb.some(result => result == v)} >
+                                                                                        <img src="images/checked.png" />
+                                                                                    </Button>
+                                                                                    :
+                                                                                    <Button onClick={() => this.selectSeat(v)} ><img src="images/single-sofa.png" /></Button>
+                                                                        }
+                                                                    </div>
                                                                     :
                                                                     index == 10 ?
-                                                                        <Button><img src="images/two-seat-sofa.png" style={{ width: 48 }} /></Button>
+                                                                        <div>
+                                                                            {
+                                                                                seatFromDb.some(result => result == v) ?
+                                                                                    <Button
+                                                                                        onClick={() => this.unSelectSeat(v)}
+                                                                                        disabled={seatFromDb.some(result => result == v)} >
+                                                                                        <img src="images/user-image-with-black-background.png" />
+                                                                                    </Button>
+                                                                                    : seatSelect.some(result => result == v) ?
+                                                                                        <Button
+                                                                                            onClick={() => this.unSelectSeat(v)}
+                                                                                            disabled={seatFromDb.some(result => result == v)} >
+                                                                                            <img src="images/checked.png" />
+                                                                                        </Button>
+                                                                                        :
+                                                                                        <Button onClick={() => this.selectSeat(v)} ><img src="images/two-seat-sofa.png" /></Button>
+                                                                            }
+                                                                        </div>
                                                                         : ''
                                                         }
                                                     </div>
@@ -53,6 +131,7 @@ class ChooseASeat extends Component {
                                     )
                                 })
                             }
+                            
                         </div>
                     </div>
                 </Layout>

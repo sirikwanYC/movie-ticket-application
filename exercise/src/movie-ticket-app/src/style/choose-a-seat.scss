@@ -9,6 +9,17 @@
         .seat {
             width: 53%;
             margin: 5% auto;
+            .theater {
+                background-image: url('/images/theater.png');
+                width: 100%;
+                height: 112px;
+                background-repeat: no-repeat;
+                background-size: 100%;
+                .text {
+                    text-align: center;
+                    padding-top: 6%;
+                }
+            }
             img {
                 width: 37px;
                 padding: 2px;
