@@ -6,15 +6,17 @@
 
 ## 
 รายละเอียด
-	**Technologies** :  ** "babel-plugin-import": เพื่อให้สามารถใช้ syntax ES6 ได้,
-    				"bootstrap": สไตล์ความสวยงาม,
-    				"node-sass": ภาษาที่ใช้เขียนสไตล์,
-    				"react": Library ที่ใช้เขียนส่งออกเป็นหน้า client,
-    				"react-dom": render react,
-    				"react-router-dom": สร้าง routerของ React,
-    				"reactstrap": สไตล์ความสวยงาม เป็น component,
-				"axios": RESTful API(get/post) 
-			    **   
+
+	**Technologies** :  
+	
+		"babel-plugin-import": เพื่อให้สามารถใช้ syntax ES6 ได้,
+		"bootstrap": สไตล์ความสวยงาม,
+		"node-sass": ภาษาที่ใช้เขียนสไตล์,
+		"react": Library ที่ใช้เขียนส่งออกเป็นหน้า client,
+		"react-dom": render react,
+		"react-router-dom": สร้าง routerของ React,
+		"reactstrap": สไตล์ความสวยงาม เป็น component,
+		"axios": RESTful API(get/post) 
    
 	**Architecture Design** : https://drive.google.com/file/d/1xBfweH9MaEbNDeKqJ3kkjyTtYsHmjPTA/view?usp=sharing   
    
