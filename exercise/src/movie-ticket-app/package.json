@@ -1,0 +1,25 @@
+{
+  "name": "movie-ticket-app",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "babel-plugin-import": "1.11.*",
+    "bootstrap": "4.3.*",
+    "node-sass": "4.11.*",
+    "react": "16.8.*",
+    "react-dom": "16.8.*",
+    "react-router-dom": "5.0.*",
+    "react-scripts": "2.1.*",
+    "reactstrap": "^7.1.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
+}

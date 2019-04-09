@@ -1,0 +1,32 @@
+.choose-a-seat {
+    .card-seat-box {
+        width: 90%;
+        margin: 0 auto;
+        height: auto;
+        background-color: #fff;
+        border-radius: 9px;
+        margin-bottom: 2%;
+        .seat {
+            width: 53%;
+            margin: 5% auto;
+            img {
+                width: 37px;
+                padding: 2px;
+            }
+            .btn {
+                background: transparent;
+                border: none;
+                padding: 0;
+                height: 37px;
+                width: 37px;
+            }
+            .row-seat {
+                display: flex;
+                flex-direction: row;
+                .col-seat {
+                    width: 10%;
+                }
+            }
+        }
+    }
+}
