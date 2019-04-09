@@ -6,6 +6,7 @@
 
 ## 
 รายละเอียด
+
 	**Technologies** :  "babel-plugin-import": เพื่อให้สามารถใช้ syntax ES6 ได้,
     					"bootstrap": สไตล์ความสวยงาม,
     					"node-sass": ภาษาที่ใช้เขียนสไตล์,
