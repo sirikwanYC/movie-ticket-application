@@ -1,7 +1,7 @@
 .layout {
     .text-header {
         background-color: #383838;
-        padding: 30px 112px 0;
+        padding: 30px 112px 0 135px;
         .bar-text{
             width: 100%;
             display: flex;
@@ -22,7 +22,7 @@
                 }
                 .line, .line-focus {
                     background: #ffffff;
-                    width: 91%;
+                    width: 100%;
                     margin: 19px 0;
                 }
                 .border-number-focus, .line-focus {
