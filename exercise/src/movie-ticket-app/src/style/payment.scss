@@ -29,6 +29,11 @@
                 .input-money {
                     width: 67%;
                     padding-right: 3%;
+                    .alert {
+                        font-size: 16px;
+                        padding: 5px;
+                        margin-top: 5px;
+                    }
                 }
             }
             .submit-payment {
@@ -45,4 +50,17 @@
 
     }
 
+}
+.give-the-change {
+    .change-box {
+        display: flex;
+        flex-direction: row;
+        .text {
+            width: 50%;
+        }
+        .text-money {
+            width: 50%;
+            text-align: right;
+        }
+    }
 }
