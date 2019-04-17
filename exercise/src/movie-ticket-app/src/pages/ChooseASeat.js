@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Layout from '../components/Layout'
 import { Row, Button } from 'reactstrap'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
 
 const charSeat = ['k', 'j', 'h', 'g', 'f', 'e', 'd', 'c', 'b', 'a', 'aa']
 
@@ -25,11 +26,19 @@ class ChooseASeat extends Component {
         priceTicket: 0,
         movie: this.props.location.state.movie,
         timeMovie: this.props.location.state.timeMovie,
-        seatFromDb: []
+        seatFromDb: ['']
     }
 
     componentWillMount = () => {
-        console.log(this.state.seatFromDb)
+        const { movie, timeMovie } = this.state
+        const nameMovie = `${movie.name_movie_en} ${movie.name_movie_th}`
+        const url = `http://localhost:5000/get-seat-movie/name-movie/${nameMovie}/round-movie/${timeMovie}`
+        axios.get(url)
+        .then(res => {
+            this.setState({
+                seatFromDb: res.data !== null ? res.data.seat : ['']
+            })
+        })
     }
 
     selectSeat = (seat, price) => {
@@ -65,17 +74,17 @@ class ChooseASeat extends Component {
                             <div className="deluxe" >
                                 <img src="images/sofa.png" />
                                 <div> deluxe </div>
-                                <div> 170 บาท </div>
+                                <div> {movie.price.deluxe}  บาท </div>
                             </div>
                             <div className="premium" >
                                 <img src="images/single-sofa.png" />
                                 <div> premium </div>
-                                <div> 190 บาท </div>
+                                <div> {movie.price.premium} บาท </div>
                             </div>
                             <div className="sofa-sweet" >
                                 <img src="images/two-seat-sofa.png" />
                                 <div> sofa sweet </div>
-                                <div> 500 บาท</div>
+                                <div> {movie.price.sofa_sweet} บาท</div>
 
                             </div>
                         </div>

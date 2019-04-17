@@ -7,33 +7,38 @@
             display: flex;
             flex-direction: row;
             justify-content: center;
-            .select-movie, .select-movie-last {
+            .select-movie {
                 display: flex;
                 flex-direction: row;
-                width: 30%;
+                width: 25%;
                 text-align: center;
-                .border-number, .border-number-focus {
-                    letter-spacing: 2px;
-                    background-color: #ffffff;
-                    border-radius: 50px;
-                    width: 40px;
-                    height: 40px;
-                    padding-top: 3px;
-                }
-                .line, .line-focus {
-                    background: #ffffff;
-                    width: 100%;
-                    margin: 19px 0;
-                }
-                .border-number-focus, .line-focus {
-                    background-color: #2f54eb;
-                }
+            }
+            .border-number, .border-number-focus {
+                letter-spacing: 2px;
+                background-color: #ffffff;
+                border-radius: 50px;
+                width: 16%;
+                height: 100%;
+                padding-top: 3px;
+            }
+            .line, .line-focus {
+                background: #ffffff;
+                width: 84%;
+                height: 4%;
+                margin: 21px 0;
+            }
+            .border-number-focus, .line-focus {
+                background-color: #2f54eb;
             }
             .select-movie-last {
                 width: 4%;
+                text-align: center;
+                .border-number, .border-number-focus { 
+                    width: 100%;
+                }
             }
             .text, .text-opacity {
-                width: 25%;
+                width: 21%;
             }
             .text-opacity, .border-number-focus {
                 opacity: 0.8;
