@@ -39,6 +39,7 @@ class ChooseASeat extends Component {
                 seatFromDb: res.data !== null ? res.data.seat : ['']
             })
         })
+        .catch(() => alert('eee'))
     }
 
     selectSeat = (seat, price) => {
@@ -64,7 +65,7 @@ class ChooseASeat extends Component {
 
     render() {
 
-        const { seatSelect, priceTicket, movie, seatFromDb } = this.state
+        const { seatSelect, priceTicket, movie, seatFromDb, timeMovie } = this.state
 
         return (
             <div className="choose-a-seat" >
@@ -167,7 +168,7 @@ class ChooseASeat extends Component {
                                     <Button className="white" disabled={seatSelect.length == 0} >
                                         <Link
                                             className={seatSelect.length == 0 ? 'disabled-link' : ''}
-                                            to={{ pathname: '/payment', state: { movie, priceTicket, seatSelect } }}
+                                            to={{ pathname: '/payment', state: { movie, priceTicket, seatSelect, timeMovie } }}
                                         > ดำเนินการต่อ
                                         </Link>
                                     </Button>

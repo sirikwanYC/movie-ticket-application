@@ -1,11 +1,12 @@
 import mongoose from 'mongoose'
 
 const seatSchema = new mongoose.Schema({
-    movieName: String,
-    roundMovie: String,
+    movie_id: String,
+    movie_name: String,
+    round_movie: String,
     seat: [ String ]
 }, {collection: 'all_seat_movie'})
 
-const seat = mongoose.model('all_seat_movie', seatSchema)
+const Seat = mongoose.model('all_seat_movie', seatSchema)
 
-export default seat
+export default Seat

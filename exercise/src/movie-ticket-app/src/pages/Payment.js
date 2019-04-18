@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import Layout from '../components/Layout'
-import { Link } from 'react-router-dom'
-import { Input, Button, Modal, ModalHeader, ModalBody, ModalFooter, Alert } from 'reactstrap'
+import { Link, Redirect } from 'react-router-dom'
+import { Input, Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 import axios from 'axios'
+import Countdown from 'react-countdown-now'
 
 const allGiveTheChange = ['ธนบัตร 1000', 'ธนบัตร 500', 'ธนบัตร 100', 'ธนบัตร 50', 'ธนบัตร 20', 'เหรียญ 10', 'เหรียญ 5', 'เหรียญ 2', 'เหรียญ 1']
 class Payment extends Component {
@@ -10,11 +11,26 @@ class Payment extends Component {
         movie: this.props.location.state.movie,
         priceTicket: this.props.location.state.priceTicket,
         seatSelect: this.props.location.state.seatSelect,
+        timeMovie: this.props.location.state.timeMovie,
         getMoney: 0,
         validateInput: false,
         openModal: false,
         giveTheChange: [],
-        totalGiveChange: 0
+        totalGiveChange: 0,
+        startCountdown: false,
+        dataUser: {
+            name: '',
+            mail: '',
+            tel: ''
+        },
+        redirect: false,
+        loading: false,
+    }
+
+    componentWillMount = () => {
+        this.setState({
+            startCountdown: !this.state.startCountdown
+        })
     }
 
     checkGetMoney = (getMoney) => {
@@ -116,16 +132,141 @@ class Payment extends Component {
 
     submitPayment = () => {
         this.setState({
-            openModal: !this.state.openModal
+            loading: !this.state.loading,
         })
+        const {
+            dataUser,
+            movie,
+            seatSelect,
+            timeMovie,
+            openModal,
+            loading,
+            redirect
+        } = this.state
+
+        console.log('timeMovie', timeMovie)
+
+        const body = {
+            name: dataUser.name,
+            mail: dataUser.mail,
+            tel: dataUser.tel,
+            movie_id: movie._id,
+            movie_name: `${movie.name_movie_en} ${movie.name_movie_th}`,
+            round_movie: timeMovie,
+            seat: seatSelect,
+        }
+
+        const url = 'http://localhost:5000/insert-ticket'
+
+        setTimeout(() => {
+            axios.post(url, body)
+                .then(() => {
+                    this.setState({
+                        openModal: !openModal,
+                        loading: !loading,
+                        redirect: !redirect
+                    })
+                })
+        }, 2000)
+
     }
 
+    setValue = (event, field) => {
+        this.setState({
+            dataUser: {
+                ...this.state.dataUser,
+                [field]: event.target.value
+            }
+        })
+
+    }
 
     render() {
-        const { movie, priceTicket, seatSelect, validateInput, openModal, getMoney, giveTheChange, totalGiveChange } = this.state
+        const {
+            movie,
+            startCountdown,
+            priceTicket,
+            seatSelect,
+            validateInput,
+            openModal,
+            getMoney,
+            giveTheChange,
+            totalGiveChange,
+            dataUser,
+            redirect,
+            loading
+        } = this.state
+
+        const rendererClock = ({ minutes, seconds, completed }) => {
+            if (completed) {
+                return (
+                    <div>
+                        <Modal isOpen={true} className="font" className="modal-time-out" >
+                            <ModalBody >
+                                <p className="font" > หมดเวลาในการทำรายการ กรุณาทำรายการใหม่ค่ะ </p>
+                                <div className="button-ok" >
+                                    <Button color="primary"><Link to='/' >ตกลง</Link></Button>
+                                </div>
+                            </ModalBody>
+                        </Modal>
+                    </div>
+                )
+            } else {
+                return <span> เหลือเวลา {minutes}:{seconds}</span>
+            }
+        }
+
         return (
             <div className="payment" >
+                {redirect ? <Redirect to="/show-ticket" /> : ''}
                 <Layout payment={true} >
+                    <div className="card-box" >
+                        <div className="box-header" >
+                            <div className="body-header" > กรอกข้อมูล </div>
+                            <div className="time-clock font">
+                                <Countdown
+                                    key={startCountdown}
+                                    date={Date.now() + 600000}
+                                    renderer={rendererClock}
+                                />
+                            </div>
+                        </div>
+                        <hr />
+                        <div className="input-profile" >
+                            <div className="row" >
+                                <div className="header" >
+                                    ชื่อ-นามสกุล
+                                </div>
+                                <div className="input" >
+                                    <Input onChange={(event) => this.setValue(event, 'name')}
+                                        style={{
+                                            borderColor: dataUser.name.length == 0 && getMoney !== 0 ? 'red' : ''
+                                        }} />
+                                    {
+                                        dataUser.name.length == 0 && getMoney !== 0 ?
+                                            <div className="size-small red" > *กรุณากรอกชื่อ </div>
+                                            : ''
+                                    }
+                                </div>
+                            </div>
+                            <div className="row" >
+                                <div className="header" >
+                                    เมลล์
+                                </div>
+                                <div className="input" >
+                                    <Input onChange={(event) => this.setValue(event, 'mail')} type="email" />
+                                </div>
+                            </div>
+                            <div className="row" >
+                                <div className="header" >
+                                    เบอร์โทร
+                                </div>
+                                <div className="input" >
+                                    <Input onChange={(event) => this.setValue(event, 'tel')} type="number" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div className="card-box" >
                         <div className="payment-box" >
                             <div className="total-payment blue size-large" > ยอดชำระ {priceTicket} บาท </div>
@@ -133,44 +274,54 @@ class Payment extends Component {
                                 <div className="money" > รับเงิน </div>
                                 <div className="input-money" >
                                     <div><Input onChange={this.onChangeGetMoney} style={{ borderColor: validateInput ? 'red' : '' }} /></div>
-                                    {/* {
-                                        showAlert ?
-                                        <Alert color="danger">
-                                            กรุณากรอกจำนวนเงินให้ถูกต้อง
-                                        </Alert>
-                                        : ''
-                                    } */}
+                                    {
+                                        validateInput ?
+                                            <div className="size-small red" > *กรุณากรอกจำนวนเงินที่ถูกต้อง </div>
+                                            : ''
+                                    }
                                 </div>
                                 <div className="unit" > บาท </div>
                             </div>
                             <div className="submit-payment blue size-large" >
-                                <Button disabled={getMoney === 0 || validateInput} onClick={() => this.toggle('calculator')}> ชำระเงิน </Button>
-                                <Modal isOpen={openModal} toggle={this.toggle} className="font" >
-                                    <ModalHeader toggle={this.toggle} >เงินทอน: {totalGiveChange} บาท</ModalHeader>
-                                    <ModalBody>
-                                        <div className="give-the-change" >
-                                            {
-                                                allGiveTheChange.map((value, index) => {
-                                                    return (
-                                                        <div className="change-box" key={+index}>
-                                                            <div className="text" > {value} </div>
-                                                            <div className="text-money" > {giveTheChange[index]} </div>
-                                                        </div>
-                                                    )
-                                                })
-                                            }
-                                        </div>
-                                    </ModalBody>
-                                    <ModalFooter>
-                                        <Button color="primary" onClick={this.submitPayment}>ตกลง</Button>{' '}
-                                    </ModalFooter>
+                                <Button disabled={getMoney === 0 || validateInput || dataUser.name.length == 0} onClick={() => this.toggle('calculator')}> ชำระเงิน </Button>
+                                <Modal isOpen={openModal} toggle={this.toggle} className="font" className="submit-payment-modal" >
+                                    <ModalHeader toggle={this.toggle}className="font"  > {totalGiveChange !== 0 ? `เงินทอน: ${totalGiveChange} บาท` : 'ไม่มีเงินทอน'} </ModalHeader>
+                                    {
+                                        totalGiveChange !== 0 &&
+                                        <ModalBody>
+                                            <div className="give-the-change" >
+                                                {
+                                                    allGiveTheChange.map((value, index) => {
+                                                        return (
+                                                            <div className="change-box" key={+index}>
+                                                                <div className="text font" > {value} </div>
+                                                                <div className="text-money font" > {giveTheChange[index]} </div>
+                                                            </div>
+                                                        )
+                                                    })
+                                                }
+                                            </div>
+                                        </ModalBody>
+                                    }
+                                    {
+                                        totalGiveChange !== 0 ?
+                                            <ModalFooter>
+                                                <Button className="font" disabled={loading} color="primary" onClick={this.submitPayment}>
+                                                    {loading ? 'Loading…' : 'ตกลง'}
+                                                </Button>
+                                            </ModalFooter>
+                                            :
+                                            <div className="button-footer" >
+                                                <Button className="font" disabled={loading} color="primary" onClick={this.submitPayment}>
+                                                    {loading ? 'Loading…' : 'ตกลง'}
+                                                </Button>
+                                            </div>
+                                    }
                                 </Modal>
                             </div>
                         </div>
                     </div>
-                    <div className="card-box" >
-                        details
-                    </div>
+
                 </Layout>
             </div>
         )
