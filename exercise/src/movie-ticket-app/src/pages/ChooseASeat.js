@@ -1,6 +1,10 @@
 import React, { Component } from 'react'
 import Layout from '../components/Layout'
 import { Row, Button } from 'reactstrap'
+import { Link } from 'react-router-dom'
+import axios from 'axios'
+
+const charSeat = ['k', 'j', 'h', 'g', 'f', 'e', 'd', 'c', 'b', 'a', 'aa']
 
 const seat = [
     ['k1', 'k2', 'k3', 'k4', 'k5', 'k6', 'k7', 'k8', 'k9', 'k10', 'k11', 'k12', 'k13', 'k14', 'k15', 'k16'],
@@ -16,122 +20,160 @@ const seat = [
     ['aa1', 'aa2', 'aa3', 'aa4', 'aa5']
 ]
 
-const seatFromDb = ['aa1', 'aa4', 'b9', 'b10', 'a1', 'a2', 'a3', 'a4', 'a5', 'k5', 'k6', 'k7']
-
 class ChooseASeat extends Component {
     state = {
-        seatSelect: []
+        seatSelect: [],
+        priceTicket: 0,
+        movie: this.props.location.state.movie,
+        timeMovie: this.props.location.state.timeMovie,
+        seatFromDb: ['']
     }
 
-    selectSeat = (seat) => {
-        const seatSelect = this.state.seatSelect
+    componentWillMount = () => {
+        const { movie, timeMovie } = this.state
+        const nameMovie = `${movie.name_movie_en} ${movie.name_movie_th}`
+        const url = `http://localhost:5000/get-seat-movie/name-movie/${nameMovie}/round-movie/${timeMovie}`
+        axios.get(url)
+        .then(res => {
+            this.setState({
+                seatFromDb: res.data !== null ? res.data.seat : ['']
+            })
+        })
+        .catch(() => alert('eee'))
+    }
+
+    selectSeat = (seat, price) => {
+        let { seatSelect, priceTicket } = this.state
+        priceTicket += price
         seatSelect.push(seat)
         this.setState({
             seatSelect,
+            priceTicket
         })
+
     }
 
-    unSelectSeat = (seat) => {
-        let seatSelect = this.state.seatSelect
+    unSelectSeat = (seat, price) => {
+        let { seatSelect, priceTicket } = this.state
+        priceTicket -= price
         seatSelect = seatSelect.filter(result => result !== seat)
         this.setState({
             seatSelect,
+            priceTicket
         })
     }
 
     render() {
 
-        const { seatSelect } = this.state
+        const { seatSelect, priceTicket, movie, seatFromDb, timeMovie } = this.state
 
         return (
             <div className="choose-a-seat" >
                 <Layout selectSeat={true} >
                     <div className="card-seat-box" >
-                        <div className="seat" >
-                            <div className="theater" >
-                                <div className="text dark-blue" > จอภาพยนตร์ </div>
+                        <div className="seat-price" >
+                            <div className="deluxe" >
+                                <img src="images/sofa.png" />
+                                <div> deluxe </div>
+                                <div> {movie.price.deluxe}  บาท </div>
                             </div>
-                            {
-                                seat.map((value, index) => {
-                                    return (
-                                        <div key={+index} className="row-seat" style={
-                                            index == 10 ? { justifyContent: 'center' } :
-                                                index == 9 || index == 6 ? { marginBottom: 7 } : {}
-                                        }>
-                                            {
-                                                value.map((v, i) => {
-                                                    return <div key={+i} className="col-seat" >
-                                                        {
-                                                            index >= 0 && index <= 6 ?
-                                                                <div>
-                                                                    {
-                                                                        seatFromDb.some(result => result == v) ?
-                                                                            <Button disabled>
-                                                                                <img src="images/user-image-with-black-background.png" />
-                                                                            </Button>
-                                                                            : seatSelect.some(result => result == v) ?
-                                                                                <Button
-                                                                                    onClick={() => this.unSelectSeat(v)}
-                                                                                    disabled={seatFromDb.some(result => result == v)} >
-                                                                                    <img src="images/checked.png" />
-                                                                                </Button>
-                                                                                :
-                                                                                <Button onClick={() => this.selectSeat(v)} >
-                                                                                    <img src="images/sofa.png" />
-                                                                                </Button>
-                                                                    }
-                                                                </div>
-                                                                :
-                                                                index > 6 && index <= 9 ?
-                                                                    <div>
-                                                                        {
-                                                                            seatFromDb.some(result => result == v) ?
-                                                                                <Button
-                                                                                    onClick={() => this.unSelectSeat(v)}
-                                                                                    disabled={seatFromDb.some(result => result == v)} >
-                                                                                    <img src="images/user-image-with-black-background.png" />
-                                                                                </Button>
-                                                                                : seatSelect.some(result => result == v) ?
-                                                                                    <Button
-                                                                                        onClick={() => this.unSelectSeat(v)}
-                                                                                        disabled={seatFromDb.some(result => result == v)} >
-                                                                                        <img src="images/checked.png" />
-                                                                                    </Button>
-                                                                                    :
-                                                                                    <Button onClick={() => this.selectSeat(v)} ><img src="images/single-sofa.png" /></Button>
-                                                                        }
-                                                                    </div>
-                                                                    :
-                                                                    index == 10 ?
-                                                                        <div>
-                                                                            {
-                                                                                seatFromDb.some(result => result == v) ?
-                                                                                    <Button
-                                                                                        onClick={() => this.unSelectSeat(v)}
-                                                                                        disabled={seatFromDb.some(result => result == v)} >
-                                                                                        <img src="images/user-image-with-black-background.png" />
-                                                                                    </Button>
-                                                                                    : seatSelect.some(result => result == v) ?
-                                                                                        <Button
-                                                                                            onClick={() => this.unSelectSeat(v)}
-                                                                                            disabled={seatFromDb.some(result => result == v)} >
-                                                                                            <img src="images/checked.png" />
-                                                                                        </Button>
-                                                                                        :
-                                                                                        <Button onClick={() => this.selectSeat(v)} ><img src="images/two-seat-sofa.png" /></Button>
-                                                                            }
-                                                                        </div>
-                                                                        : ''
-                                                        }
-                                                    </div>
-                                                })
-                                            }
-                                        </div>
+                            <div className="premium" >
+                                <img src="images/single-sofa.png" />
+                                <div> premium </div>
+                                <div> {movie.price.premium} บาท </div>
+                            </div>
+                            <div className="sofa-sweet" >
+                                <img src="images/two-seat-sofa.png" />
+                                <div> sofa sweet </div>
+                                <div> {movie.price.sofa_sweet} บาท</div>
 
-                                    )
-                                })
-                            }
-                            
+                            </div>
+                        </div>
+                        <div className="seat" >
+                            <div className="text-seat" >
+                                {
+                                    charSeat.map((value, index) => <div key={+index} className="margin-bottom"> {value} </div>)
+                                }
+                            </div>
+                            <div className="box-seat" >
+                                <div className="theater" >
+                                    <div className="text dark-blue" > จอภาพยนตร์ </div>
+                                </div>
+                                {
+                                    seat.map((value, index) => {
+                                        return (
+                                            <div key={+index} className="row-seat" style={
+                                                index == 10 ? { justifyContent: 'center' } :
+                                                    index == 9 || index == 6 ? { marginBottom: 7 } : {}
+                                            }>
+                                                {
+                                                    value.map((v, i) => {
+                                                        return <div key={+i} className="col-seat" >
+                                                            <div>
+                                                                {
+                                                                    seatFromDb.some(result => result == v) ?
+                                                                        <Button disabled>
+                                                                            <img src="images/user-image-with-black-background.png" />
+                                                                        </Button>
+                                                                        : seatSelect.some(result => result == v) ?
+                                                                            <Button
+                                                                                onClick={() => this.unSelectSeat(v, index >= 0 && index <= 6 ? 170 : index > 6 && index <= 9 ? 190 : 500)}
+                                                                                disabled={seatFromDb.some(result => result == v)} >
+                                                                                <img src="images/checked.png" />
+                                                                            </Button>
+                                                                            :
+                                                                            <Button onClick={() => this.selectSeat(v, index >= 0 && index <= 6 ? 170 : index > 6 && index <= 9 ? 190 : 500)} >
+                                                                                <img src={
+                                                                                    index >= 0 && index <= 6 ?
+                                                                                        'images/sofa.png' :
+                                                                                        index > 6 && index <= 9 ?
+                                                                                            'images/single-sofa.png' :
+                                                                                            index == 10 ?
+                                                                                                'images/two-seat-sofa.png' : ''
+                                                                                } />
+                                                                            </Button>
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                    })
+                                                }
+                                            </div>
+
+                                        )
+                                    })
+                                }
+                            </div>
+                            <div className="text-seat" >
+                                {
+                                    charSeat.map((value, index) => <div key={+index} className="margin-bottom" > {value} </div>)
+                                }
+                            </div>
+                            <div className="show-price-seat" >
+                                <div> โรงภาพยนตร์ {movie.theater} </div>
+                                <hr />
+                                <div className="all-seat" >
+                                    <div> ที่นั่งที่เลือก </div>
+                                    {
+                                        seatSelect.length !== 0 ?
+                                            seatSelect.map((value, index) => <span key={+index} className="blue" > {`${value}, `} </span>)
+                                            :
+                                            <span className="blue" > - </span>
+                                    }
+                                </div>
+                                <div className="all-price" >
+                                    <div> ราคารวม </div>
+                                    <span className="blue" > {priceTicket} บาท</span>
+                                </div>
+                                <div className="next-step" >
+                                    <Button className="white" disabled={seatSelect.length == 0} >
+                                        <Link
+                                            className={seatSelect.length == 0 ? 'disabled-link' : ''}
+                                            to={{ pathname: '/payment', state: { movie, priceTicket, seatSelect, timeMovie } }}
+                                        > ดำเนินการต่อ
+                                        </Link>
+                                    </Button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </Layout>

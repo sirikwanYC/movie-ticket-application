@@ -21,8 +21,10 @@
             .img-movie {
                 width: 14%;
                 padding: 0;
+                height: 250px;
                 img {
                     width: 169px;
+                    height: 100%;
                 }
             }
             .detail-movie {
@@ -48,6 +50,9 @@
                         background-color: #2d3f49;
                         border-radius: 6px; 
                         padding: 1px 6px 1px 9px;
+                    }
+                    .margin-type-theater {
+                        margin-right: 4px;
                     }
                 }
                 .round-movie {
