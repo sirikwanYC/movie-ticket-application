@@ -6,7 +6,7 @@ class Layout extends Component {
     render() {
         return (
             <div className="layout font" >
-                <Navbar />
+                <Navbar search={this.props.pageHome} callback={this.props.callback} />
                 <Row className="text-header" >
                     <div className="bar-text" >
                         <div className="select-movie" >

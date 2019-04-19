@@ -6,7 +6,7 @@ import axios from 'axios'
 
 class Home extends Component {
     state = {
-        movie: []
+        movie: [],
     }
 
     componentWillMount = () => {
@@ -19,14 +19,37 @@ class Home extends Component {
             })
     }
 
+    getMovieNew = (search, sort) => {
+        let sortNew = 1
+            if (sort === 'เรียงราคาจากน้อยไปมาก') {
+                sortNew = 1
+            } else {
+                sortNew = -1
+            }
+        const url = `http://localhost:5000/search-movie`
+
+        axios.get(url, {
+            params: {
+                name_movie: search,
+                sort: search.length !== 0 ? sortNew : '',
+            }
+        })
+        .then((res) => {
+            this.setState({
+                movie: res.data
+            })
+        })
+    }
+
 
     render() {
         const { movie, seat } = this.state
         return (
             <div className="home" >
-                <Layout selectMovie={true} >
+                <Layout selectMovie={true} pageHome={true} callback={this.getMovieNew}>
                     {
                         movie.length !== 0 &&
+                        movie.length !== 0 ?
                         movie.map((value, index) => {
                             return (
                                 <div className="card-white" key={+index} >
@@ -72,6 +95,8 @@ class Home extends Component {
                                 </div>
                             )
                         })
+                        :
+                        <div className="not-found font size-large white" > ไม่พบภาพยนตร์ที่คุณค้นหา </div>
                     }
                 </Layout>
             </div>
