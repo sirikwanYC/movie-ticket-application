@@ -1,0 +1,82 @@
+.show-ticket {
+    .card-ticket {
+        width: 60%;
+        margin: 2% auto;
+        background-image: url(/images/movie-card.png);
+        height: auto;
+        background-repeat: round;
+        .name-movie {
+            margin: 4% 6% 0 0;
+            text-align: end;
+        }
+        .card-body-ticket {
+            display: flex;
+            flex-direction: row;
+            .ticket-theater {
+                width: 22%;
+                text-align: center;
+                padding: 2%;
+                img {
+                    width: 55%;
+                }
+                .theater-order, .seat-select {
+                    text-transform: uppercase;
+                }
+                .theater-order {
+                    letter-spacing: 1px;
+                }
+                .date {
+                    margin: 8%;
+                }
+            }
+            .ticket-detail {
+                width: 78%;
+                display: flex;
+                flex-direction: row;
+                padding: 2.2% 2%;
+                .img-movie {
+                    width: 20%;
+                    img {
+                        width: 119px;
+                        height: 169px;
+                    }
+                }
+                .detail-movie {
+                    width: 80%;
+                    .sound {
+                        padding: 0% 6%;
+                        text-align: right;
+                        text-transform: uppercase;
+                        margin-top: 7px;
+                        .box-button {
+                            border: 1px solid #2d3f49;
+                            background-color: #2d3f49;
+                            border-radius: 6px; 
+                            padding: 1px 6px 1px 9px;
+                        }
+                        .margin-type-theater {
+                            margin-right: 4px;
+                        }
+                    }
+                    .seat, .theater-order {
+                        text-align: right;
+                        padding: 3% 6% 0;
+                        text-transform: uppercase;
+                        letter-spacing: 1px;
+                    }
+                    .seat {
+                        padding-top: 0;
+                    }
+                    .bar-code {
+                        text-align: right;
+                        padding: 2% 6%;
+                        img {
+                            width: 50%;
+                            height: 50px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

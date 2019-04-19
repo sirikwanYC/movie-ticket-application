@@ -34,12 +34,12 @@ class ChooseASeat extends Component {
         const nameMovie = `${movie.name_movie_en} ${movie.name_movie_th}`
         const url = `http://localhost:5000/get-seat-movie/name-movie/${nameMovie}/round-movie/${timeMovie}`
         axios.get(url)
-        .then(res => {
-            this.setState({
-                seatFromDb: res.data !== null ? res.data.seat : ['']
+            .then(res => {
+                this.setState({
+                    seatFromDb: res.data !== null ? res.data.seat : ['']
+                })
             })
-        })
-        .catch(() => alert('eee'))
+            .catch(() => alert('eee'))
     }
 
     selectSeat = (seat, price) => {
@@ -117,12 +117,20 @@ class ChooseASeat extends Component {
                                                                         </Button>
                                                                         : seatSelect.some(result => result == v) ?
                                                                             <Button
-                                                                                onClick={() => this.unSelectSeat(v, index >= 0 && index <= 6 ? 170 : index > 6 && index <= 9 ? 190 : 500)}
+                                                                                onClick={() => this.unSelectSeat(v,
+                                                                                    index >= 0 && index <= 6 ? movie.price.deluxe
+                                                                                        : index > 6 && index <= 9 ? movie.price.premium
+                                                                                            : movie.price.sofa_sweet
+                                                                                )}
                                                                                 disabled={seatFromDb.some(result => result == v)} >
                                                                                 <img src="images/checked.png" />
                                                                             </Button>
                                                                             :
-                                                                            <Button onClick={() => this.selectSeat(v, index >= 0 && index <= 6 ? 170 : index > 6 && index <= 9 ? 190 : 500)} >
+                                                                            <Button onClick={() => this.selectSeat(v,
+                                                                                index >= 0 && index <= 6 ? movie.price.deluxe
+                                                                                    : index > 6 && index <= 9 ? movie.price.premium
+                                                                                        : movie.price.sofa_sweet
+                                                                            )} >
                                                                                 <img src={
                                                                                     index >= 0 && index <= 6 ?
                                                                                         'images/sofa.png' :

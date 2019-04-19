@@ -144,8 +144,6 @@ class Payment extends Component {
             redirect
         } = this.state
 
-        console.log('timeMovie', timeMovie)
-
         const body = {
             name: dataUser.name,
             mail: dataUser.mail,
@@ -194,7 +192,8 @@ class Payment extends Component {
             totalGiveChange,
             dataUser,
             redirect,
-            loading
+            loading,
+            timeMovie
         } = this.state
 
         const rendererClock = ({ minutes, seconds, completed }) => {
@@ -218,7 +217,7 @@ class Payment extends Component {
 
         return (
             <div className="payment" >
-                {redirect ? <Redirect to="/show-ticket" /> : ''}
+                {redirect ? <Redirect to={{ pathname: "/show-ticket", state: { movie, seatSelect, timeMovie } }} /> : ''}
                 <Layout payment={true} >
                     <div className="card-box" >
                         <div className="box-header" >
@@ -273,7 +272,7 @@ class Payment extends Component {
                             <div className="get-money blue size-large" >
                                 <div className="money" > รับเงิน </div>
                                 <div className="input-money" >
-                                    <div><Input onChange={this.onChangeGetMoney} style={{ borderColor: validateInput ? 'red' : '' }} /></div>
+                                    <div><Input type="number" max="200000" onChange={this.onChangeGetMoney} style={{ borderColor: validateInput ? 'red' : '' }} /></div>
                                     {
                                         validateInput ?
                                             <div className="size-small red" > *กรุณากรอกจำนวนเงินที่ถูกต้อง </div>
