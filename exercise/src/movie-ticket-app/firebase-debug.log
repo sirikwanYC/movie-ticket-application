@@ -1,0 +1,22 @@
+[debug] [2019-04-20T18:44:36.110Z] ----------------------------------------------------------------------
+[debug] [2019-04-20T18:44:36.114Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Sirik\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2019-04-20T18:44:36.114Z] CLI Version:   6.7.0
+[debug] [2019-04-20T18:44:36.115Z] Platform:      win32
+[debug] [2019-04-20T18:44:36.115Z] Node Version:  v11.14.0
+[debug] [2019-04-20T18:44:36.116Z] Time:          Sun Apr 21 2019 01:44:36 GMT+0700 (GMT+07:00)
+[debug] [2019-04-20T18:44:36.116Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2019-04-20T18:44:36.131Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-04-20T18:44:36.131Z] > authorizing via signed-in user
+[debug] [2019-04-20T18:44:36.132Z] [iam] checking project movie-ticket-application for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2019-04-20T18:44:36.134Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/movie-ticket-application:testIamPermissions  
+
+[debug] [2019-04-20T18:44:51.270Z] Error: Client network socket disconnected before secure TLS connection was established
+    at TLSSocket.onConnectEnd (_tls_wrap.js:1213:19)
+    at Object.onceWrapper (events.js:281:20)
+    at TLSSocket.emit (events.js:198:15)
+    at TLSSocket.EventEmitter.emit (domain.js:481:20)
+    at endReadableNT (_stream_readable.js:1139:12)
+    at processTicksAndRejections (internal/process/task_queues.js:81:17)
+[error] 
+[error] Error: Server Error. Client network socket disconnected before secure TLS connection was established
