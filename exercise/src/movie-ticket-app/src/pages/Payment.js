@@ -154,7 +154,7 @@ class Payment extends Component {
             seat: seatSelect,
         }
 
-        const url = 'http://localhost:5000/insert-ticket'
+        const url = 'https://fathomless-depths-33999.herokuapp.com/insert-ticket'
 
         setTimeout(() => {
             axios.post(url, body)

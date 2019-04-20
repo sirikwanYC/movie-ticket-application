@@ -10,8 +10,11 @@ class Home extends Component {
     }
 
     componentWillMount = () => {
-        const url = 'http://localhost:5000/get-all-movie'
-        axios.get(url)
+        const url = 'https://fathomless-depths-33999.herokuapp.com/get-all-movie'
+        const config = {
+            headers: { 'Access-Control-Allow-Origin': '*' }
+        }
+        axios.get(url, config)
             .then(res => {
                 this.setState({
                     movie: res.data
@@ -26,7 +29,7 @@ class Home extends Component {
             } else {
                 sortNew = -1
             }
-        const url = `http://localhost:5000/search-movie`
+        const url = `https://fathomless-depths-33999.herokuapp.com/search-movie`
 
         axios.get(url, {
             params: {
@@ -48,7 +51,7 @@ class Home extends Component {
             <div className="home" >
                 <Layout selectMovie={true} pageHome={true} callback={this.getMovieNew}>
                     {
-                        movie.length !== 0 &&
+                        movie &&
                         movie.length !== 0 ?
                         movie.map((value, index) => {
                             return (
