@@ -24,8 +24,8 @@ class Navbar extends Component {
     }
 
     changeValueSort = (e) => {
-        let { search, sortSearch } = this.state
-        sortSearch = e.currentTarget.textContent
+        let { search } = this.state
+        const sortSearch = e.currentTarget.textContent
         this.setState({
             sortSearch,
         })

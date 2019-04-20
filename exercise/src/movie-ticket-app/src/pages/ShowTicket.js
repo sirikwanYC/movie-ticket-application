@@ -45,7 +45,6 @@ class ShowTicket extends Component {
                                         {movie.type_movie} : <span className="margin-type-theater" > {movie.time_movie} นาที </span>
                                         <span className="box-button white margin-type-theater" >{movie.type_theater}</span>
                                         <span className="box-button white margin-type-theater" >{movie.sound}</span>
-                                        <span className="box-button white" >{movie.rate}</span>
                                     </div>
                                     <div className="theater-order size-large" >
                                         {`theater ${movie.theater}`}
