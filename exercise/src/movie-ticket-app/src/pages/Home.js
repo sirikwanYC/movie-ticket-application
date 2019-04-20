@@ -96,7 +96,7 @@ class Home extends Component {
                             )
                         })
                         :
-                        <div className="not-found font size-large white" > ไม่พบภาพยนตร์ที่คุณค้นหา </div>
+                        <div className="not-found font size-large white" > ไม่พบภาพยนตร์ </div>
                     }
                 </Layout>
             </div>
