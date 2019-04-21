@@ -32,14 +32,13 @@ class ChooseASeat extends Component {
     componentWillMount = () => {
         const { movie, timeMovie } = this.state
         const nameMovie = `${movie.name_movie_en} ${movie.name_movie_th}`
-        const url = `https://fathomless-depths-33999.herokuapp.com/get-seat-movie/name-movie/${nameMovie}/round-movie/${timeMovie}`
+        const url = `https://movie-ticket-a8a41.firebaseapp.com/get-seat-movie/name-movie/${nameMovie}/round-movie/${timeMovie}`
         axios.get(url)
             .then(res => {
                 this.setState({
                     seatFromDb: res.data !== null ? res.data.seat : ['']
                 })
             })
-            .catch(() => alert('eee'))
     }
 
     selectSeat = (seat, price) => {

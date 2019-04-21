@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import Layout from '../components/Layout'
 import moment from 'moment'
 class ShowTicket extends Component {
-
     render() {
         const { movie, seatSelect, timeMovie } = this.props.location.state
         return (

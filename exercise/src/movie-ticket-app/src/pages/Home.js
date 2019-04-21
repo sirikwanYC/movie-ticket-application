@@ -10,11 +10,8 @@ class Home extends Component {
     }
 
     componentWillMount = () => {
-        const url = 'https://fathomless-depths-33999.herokuapp.com/get-all-movie'
-        const config = {
-            headers: { 'Access-Control-Allow-Origin': '*' }
-        }
-        axios.get(url, config)
+        const url = 'https://movie-ticket-a8a41.firebaseapp.com/get-all-movie'
+        axios.get(url,)
             .then(res => {
                 this.setState({
                     movie: res.data
@@ -23,18 +20,11 @@ class Home extends Component {
     }
 
     getMovieNew = (search, sort) => {
-        let sortNew = 1
-            if (sort === 'เรียงราคาจากน้อยไปมาก') {
-                sortNew = 1
-            } else if(sort === 'เรียงราคาจากมากไปน้อย')  {
-                sortNew = -1
-            }
-        const url = `https://fathomless-depths-33999.herokuapp.com/search-movie`
-
+        const url = `https://movie-ticket-a8a41.firebaseapp.com/search-movie`
         axios.get(url, {
             params: {
                 name_movie: search,
-                sort: search.length !== 0 ? sortNew : '',
+                sort,
             }
         })
         .then((res) => {

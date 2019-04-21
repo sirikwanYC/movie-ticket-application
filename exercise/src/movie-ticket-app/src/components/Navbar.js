@@ -17,19 +17,25 @@ class Navbar extends Component {
 
     inputSearch = (e) => {
         const search = e.target.value
+        const {sortSearch} = this.state
+        const sort = sortSearch == 'เรียงราคาจากน้อยไปมาก' ? 1 : -1
         this.setState({
             search
         })
-        this.props.callback(search, this.state.sortSearch)
+
+        this.props.callback(search, sort)
     }
 
     changeValueSort = (e) => {
         let { search } = this.state
         const sortSearch = e.currentTarget.textContent
+        const sort = sortSearch == 'เรียงราคาจากน้อยไปมาก' ? 1 : -1
+        console.log(sort)
         this.setState({
             sortSearch,
         })
-        this.props.callback(search, sortSearch)
+
+        this.props.callback(search, sort)
     }
 
     render() {
@@ -51,12 +57,10 @@ class Navbar extends Component {
                         <div className="input-search" > <Input onChange={this.inputSearch} /> </div>
                         <div className="dropdown-sort" >
                             <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
-                                <DropdownToggle caret>
-                                    { sortSearch }
-                                </DropdownToggle>
+                                <DropdownToggle caret>{sortSearch}</DropdownToggle>
                                 <DropdownMenu>
-                                    <DropdownItem onClick={this.changeValueSort}> เรียงราคาจากน้อยไปมาก </DropdownItem>
-                                    <DropdownItem onClick={this.changeValueSort}> เรียงราคาจากมากไปน้อย </DropdownItem>
+                                    <DropdownItem onClick={this.changeValueSort}>เรียงราคาจากน้อยไปมาก</DropdownItem>
+                                    <DropdownItem onClick={this.changeValueSort}>เรียงราคาจากมากไปน้อย</DropdownItem>
                                 </DropdownMenu>
                             </Dropdown>
                         </div>

@@ -4,6 +4,7 @@ import { Link, Redirect } from 'react-router-dom'
 import { Input, Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 import axios from 'axios'
 import Countdown from 'react-countdown-now'
+import moment from 'moment'
 
 const allGiveTheChange = ['ธนบัตร 1000', 'ธนบัตร 500', 'ธนบัตร 100', 'ธนบัตร 50', 'ธนบัตร 20', 'เหรียญ 10', 'เหรียญ 5', 'เหรียญ 2', 'เหรียญ 1']
 class Payment extends Component {
@@ -148,13 +149,15 @@ class Payment extends Component {
             name: dataUser.name,
             mail: dataUser.mail,
             tel: dataUser.tel,
+            date: moment(new Date()).format('DD/MM/YYYY'),
+            theater: movie.theater,
             movie_id: movie._id,
             movie_name: `${movie.name_movie_en} ${movie.name_movie_th}`,
             round_movie: timeMovie,
             seat: seatSelect,
         }
 
-        const url = 'https://fathomless-depths-33999.herokuapp.com/insert-ticket'
+        const url = 'https://movie-ticket-a8a41.firebaseapp.com/insert-ticket'
 
         setTimeout(() => {
             axios.post(url, body)
@@ -162,7 +165,7 @@ class Payment extends Component {
                     this.setState({
                         openModal: !openModal,
                         loading: !loading,
-                        redirect: !redirect
+                        redirect: !redirect,
                     })
                 })
         }, 2000)
@@ -193,7 +196,7 @@ class Payment extends Component {
             dataUser,
             redirect,
             loading,
-            timeMovie
+            timeMovie,
         } = this.state
 
         const rendererClock = ({ minutes, seconds, completed }) => {
@@ -217,7 +220,7 @@ class Payment extends Component {
 
         return (
             <div className="payment" >
-                {redirect ? <Redirect to={{ pathname: "/show-ticket", state: { movie, seatSelect, timeMovie } }} /> : ''}
+                {redirect ? <Redirect to={{ pathname: `/show-ticket`, state: { movie, seatSelect, timeMovie } }} /> : ''}
                 <Layout payment={true} >
                     <div className="card-box" >
                         <div className="box-header" >
