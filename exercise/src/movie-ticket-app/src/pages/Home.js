@@ -10,7 +10,7 @@ class Home extends Component {
     }
 
     componentWillMount = () => {
-        const url = 'https://movie-ticket-a8a41.firebaseapp.com/get-all-movie'
+        const url = 'https://fathomless-depths-33999.herokuapp.com/get-all-movie'
         axios.get(url,)
             .then(res => {
                 this.setState({
@@ -20,7 +20,7 @@ class Home extends Component {
     }
 
     getMovieNew = (search, sort) => {
-        const url = `https://movie-ticket-a8a41.firebaseapp.com/search-movie`
+        const url = `https://fathomless-depths-33999.herokuapp.com/search-movie`
         axios.get(url, {
             params: {
                 name_movie: search,

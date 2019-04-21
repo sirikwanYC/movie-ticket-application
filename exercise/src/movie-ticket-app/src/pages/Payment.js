@@ -157,7 +157,7 @@ class Payment extends Component {
             seat: seatSelect,
         }
 
-        const url = 'https://movie-ticket-a8a41.firebaseapp.com/insert-ticket'
+        const url = 'https://fathomless-depths-33999.herokuapp.com/insert-ticket'
 
         setTimeout(() => {
             axios.post(url, body)
