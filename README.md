@@ -22,7 +22,7 @@
    
 	**Installation** : ดูใน   **Readme.md** ภายในโฟลเดอร์ exercise/src/movie-ticket-app และ exercise/src/movie-ticket-service
    
-	**Deployment** : https://movie-ticket-application.firebaseapp.com/
+	**Deployment** : https://movie-ticket-a8a41.firebaseapp.com/
 			     ** Firebase เพราะว่า ใช้งานง่าย และมี document เป็นภาษาไทย รองรับ react.js **
 
 ## Backend
