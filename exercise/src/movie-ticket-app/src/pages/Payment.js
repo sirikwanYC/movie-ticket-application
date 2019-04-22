@@ -26,6 +26,7 @@ class Payment extends Component {
         },
         redirect: false,
         loading: false,
+        idTicket: '',
     }
 
     componentWillMount = () => {
@@ -159,13 +160,16 @@ class Payment extends Component {
 
         const url = 'https://fathomless-depths-33999.herokuapp.com/insert-ticket'
 
+        console.log()
+
         setTimeout(() => {
             axios.post(url, body)
-                .then(() => {
+                .then((res) => {
                     this.setState({
+                        idTicket: res.data._id,
                         openModal: !openModal,
                         loading: !loading,
-                        redirect: !redirect,
+                        redirect: !redirect
                     })
                 })
         }, 2000)
@@ -197,6 +201,7 @@ class Payment extends Component {
             redirect,
             loading,
             timeMovie,
+            idTicket
         } = this.state
 
         const rendererClock = ({ minutes, seconds, completed }) => {
@@ -220,7 +225,7 @@ class Payment extends Component {
 
         return (
             <div className="payment" >
-                {redirect ? <Redirect to={{ pathname: `/show-ticket`, state: { movie, seatSelect, timeMovie } }} /> : ''}
+                {redirect ? <Redirect to={`/show-ticket/${idTicket}`} /> : ''}
                 <Layout payment={true} >
                     <div className="card-box" >
                         <div className="box-header" >

@@ -1,4 +1,3 @@
-// import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter , Route } from 'react-router-dom'
@@ -13,7 +12,7 @@ const Index = () => (
         <Route path="/" exact component={Home} />
         <Route path="/choose-a-seat" component={ChooseASeat} />
         <Route path="/payment" component={Payment} />
-        <Route path="/show-ticket" component={ShowTicket} />
+        <Route path="/show-ticket/:id" component={ShowTicket} />
     </BrowserRouter>
 )
 
