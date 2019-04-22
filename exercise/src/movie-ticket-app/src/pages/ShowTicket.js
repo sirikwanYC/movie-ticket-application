@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Layout from '../components/Layout'
 import moment from 'moment'
 import axios from 'axios'
-// import Barcode from 'react-barcode'
+import GenQRCode from 'qrcode.react'
 
 class ShowTicket extends Component {
     state = {
@@ -10,18 +10,26 @@ class ShowTicket extends Component {
         seatSelect: null,
         timeMovie: null,
         loading: true,
+        idTicket: null,
+        fromEmail: false,
     }
 
     getTicket = () => {
+        this.setState({
+            fromEmail: true,
+        })
+        
         const { id } = this.props.match.params
         const urlTicket = `https://fathomless-depths-33999.herokuapp.com/get-ticket/${id}`
 
         axios(urlTicket)
             .then(res => {
+                console.log(res)
                 this.setState({
                     seatSelect: res.data.seat,
                     timeMovie: res.data.round_movie,
-                    movie: res.data
+                    movie: res.data,
+                    idTicket: res.data.movie_id,
                 })
                 const urlMovie = `https://fathomless-depths-33999.herokuapp.com/get-movie/${res.data.movie_id}`
                 axios(urlMovie)
@@ -41,10 +49,10 @@ class ShowTicket extends Component {
     }
 
     render() {
-        const { movie, seatSelect, loading } = this.state
+        const { movie, seatSelect, loading, timeMovie, idTicket, fromEmail } = this.state
         return (
             <div className="show-ticket" >
-                <Layout ShowTicket={true}>
+                <Layout ShowTicket={true} hidden={fromEmail}>
                     {
                         loading ?
                             <div className="loading white size-large" > loading... </div>
@@ -89,7 +97,7 @@ class ShowTicket extends Component {
                                                 <span className="box-button white margin-type-theater" >{movie.sound}</span>
                                             </div>
                                             <div className="theater-order size-large" >
-                                                {`theater ${movie.theater}`}
+                                                {`theater ${movie.theater}`} / {`round ${timeMovie}`}
                                             </div>
                                             <div className="seat size-large" >
                                                 seat: {
@@ -104,7 +112,7 @@ class ShowTicket extends Component {
                                                 }
                                             </div>
                                             <div className="bar-code" >
-                                                <img src="/images/bar-code.jpg" />
+                                                <GenQRCode value={idTicket} size={60} level="H" />
                                             </div>
                                         </div>
 

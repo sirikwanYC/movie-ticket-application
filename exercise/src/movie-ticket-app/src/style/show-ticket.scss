@@ -27,14 +27,15 @@
                     letter-spacing: 1px;
                 }
                 .date {
-                    margin: 8%;
+                    margin: 16% 8%;
                 }
             }
             .ticket-detail {
                 width: 78%;
                 display: flex;
                 flex-direction: row;
-                padding: 2.2% 2%;
+                padding: 2.2% 0.6%;
+                margin-bottom: 6px;
                 .img-movie {
                     width: 20%;
                     img {
@@ -70,7 +71,7 @@
                     }
                     .bar-code {
                         text-align: right;
-                        padding: 2% 4%;
+                        padding: 2% 7%;
                         text-transform: uppercase;
                         letter-spacing: 1px;
                         img {

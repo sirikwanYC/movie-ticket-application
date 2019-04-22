@@ -160,8 +160,6 @@ class Payment extends Component {
 
         const url = 'https://fathomless-depths-33999.herokuapp.com/insert-ticket'
 
-        console.log()
-
         setTimeout(() => {
             axios.post(url, body)
                 .then((res) => {
