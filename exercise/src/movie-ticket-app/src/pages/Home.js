@@ -11,7 +11,7 @@ class Home extends Component {
     }
 
     componentWillMount = () => {
-        const url = 'https://fathomless-depths-33999.herokuapp.com/get-all-movie'
+        const url = 'http://localhost:5000/get-all-movie'
         axios.get(url)
             .then(res => {
                 this.setState({
@@ -22,7 +22,7 @@ class Home extends Component {
     }
 
     getMovieNew = (search, sort) => {
-        const url = `https://fathomless-depths-33999.herokuapp.com/search-movie`
+        const url = `http://localhost:5000/search-movie`
         axios.get(url, {
             params: {
                 name_movie: search,

@@ -158,7 +158,7 @@ class Payment extends Component {
             seat: seatSelect,
         }
 
-        const url = 'https://fathomless-depths-33999.herokuapp.com/insert-ticket'
+        const url = 'http://localhost:5000/insert-ticket'
 
         setTimeout(() => {
             axios.post(url, body)
@@ -223,7 +223,7 @@ class Payment extends Component {
 
         return (
             <div className="payment" >
-                {redirect ? <Redirect to={`/show-ticket/${idTicket}`} /> : ''}
+                {redirect ? <Redirect to={{ pathname: `/show-ticket/${idTicket}`, state: { fromPayment: true }}} /> : ''}
                 <Layout payment={true} >
                     <div className="card-box" >
                         <div className="box-header" >

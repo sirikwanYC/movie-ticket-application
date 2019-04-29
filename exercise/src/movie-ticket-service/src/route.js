@@ -18,13 +18,13 @@ const route = (server) => {
             }).lean()
     }))
 
-    app.get('/get-movie/:id', ((req, res) => {
+    server.get('/get-movie/:id', ((req, res) => {
         Movie.findById(req.params.id, function (err, result) {
             res.json(result)
           }).lean()
     }))
 
-    app.get('/get-ticket/:id', ((req, res) => {
+    server.get('/get-ticket/:id', ((req, res) => {
         Ticket.findById(req.params.id, function (err, result) {
             res.json(result)
           }).lean()
@@ -33,11 +33,11 @@ const route = (server) => {
     server.post('/insert-ticket', ((req, res) => {
         const { movie_id, round_movie, movie_name, seat } = req.body
         const newTicket = new Ticket(req.body)
-        newTicket.save(function (err, res) {
+        newTicket.save(function (err, result) {
             if (err) res.status(401).end()
             else {
-                res.json(res)
-                if (request.body.mail.length !== 0) {
+                res.json(result)
+                if (req.body.mail.length !== 0) {
                     const transporter = nodemailer.createTransport({
                       host: 'smtp.gmail.com',
                       port: 465,
@@ -49,9 +49,9 @@ const route = (server) => {
                     })
                     const mailOptions = {
                       from: '"Movie Ticket" <movie.ticket2019@gmail.com>', 
-                      to: request.body.mail, 
-                      subject: 'รายละเอียดตั๋วภาพยนตร์ คุณ ' + request.body.name, 
-                      html: `<span> สามารถเข้าไปดูรายละเอียดตั๋วภาพยนตร์ได้ </span> <a href="https://movie-ticket-a8a41.firebaseapp.com/show-ticket/${res._id}" > คลิกที่นี่่ </a>`, 
+                      to: req.body.mail, 
+                      subject: 'รายละเอียดตั๋วภาพยนตร์ คุณ ' + req.body.name, 
+                      html: `<span> สามารถเข้าไปดูรายละเอียดตั๋วภาพยนตร์ได้ </span> <a href="http://localhost:3000/show-ticket/${result._id}" > คลิกที่นี่่ </a>`, 
                     }
                 
                     transporter.sendMail(mailOptions, (error, info) => {

@@ -11,16 +11,11 @@ class ShowTicket extends Component {
         timeMovie: null,
         loading: true,
         idTicket: null,
-        fromEmail: false,
     }
 
     getTicket = () => {
-        this.setState({
-            fromEmail: true,
-        })
-        
         const { id } = this.props.match.params
-        const urlTicket = `https://fathomless-depths-33999.herokuapp.com/get-ticket/${id}`
+        const urlTicket = `http://localhost:5000/get-ticket/${id}`
 
         axios(urlTicket)
             .then(res => {
@@ -31,7 +26,7 @@ class ShowTicket extends Component {
                     movie: res.data,
                     idTicket: res.data.movie_id,
                 })
-                const urlMovie = `https://fathomless-depths-33999.herokuapp.com/get-movie/${res.data.movie_id}`
+                const urlMovie = `http://localhost:5000/get-movie/${res.data.movie_id}`
                 axios(urlMovie)
                     .then(res => {
                         this.setState({
@@ -49,10 +44,11 @@ class ShowTicket extends Component {
     }
 
     render() {
-        const { movie, seatSelect, loading, timeMovie, idTicket, fromEmail } = this.state
+        const { movie, seatSelect, loading, timeMovie, idTicket } = this.state
+        const fromPayment = this.props.location.state && this.props.location.state.fromPayment
         return (
             <div className="show-ticket" >
-                <Layout ShowTicket={true} hidden={fromEmail}>
+                <Layout ShowTicket={true} hidden={!fromPayment}>
                     {
                         loading ?
                             <div className="loading white size-large" > loading... </div>
